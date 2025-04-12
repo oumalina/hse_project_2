@@ -2,5 +2,5 @@
 
 class role {
 public:
-    virtual work() = 0;
+    virtual void work() = 0;
 };
