@@ -2,7 +2,7 @@
 #include <string>
 #include "role.h"
 
-class collector : public role
+class collector : public Role
 {
 public:
     virtual void work();
