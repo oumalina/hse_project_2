@@ -12,7 +12,7 @@ public:
     virtual void work();
     void feed();
 
-    void updateGeneral(int enemy_cx, int enemy_cy, int baby_cx, int baby_cy);
+    virtual void updateGeneral(int enemy_cx, int enemy_cy, int baby_cx, int baby_cy) override;
 };
 
 void babysitter::updateGeneral(int enemy_cx, int enemy_cy, int baby_cx, int baby_cy) {
