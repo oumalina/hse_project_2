@@ -9,7 +9,7 @@ class cleaner : public Role, public GeneralObserver
 private:
     GeneralInformer* geninf;
 public:
-    virtual void work();
+    void work() override;
     void clean();
 
     virtual void updateGeneral(int enemy_cx, int enemy_cy, int baby_cx, int baby_cy) override;

@@ -9,7 +9,7 @@ class babysitter : public GeneralObserver, public Role
 private:
     GeneralInformer* geninf;
 public:
-    virtual void work();
+    void work() override;
     void feed();
 
     virtual void updateGeneral(int enemy_cx, int enemy_cy, int baby_cx, int baby_cy) override;

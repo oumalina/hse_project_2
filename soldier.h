@@ -9,7 +9,7 @@ class soldier : public RoleObserver, public Role
 private:
     SoldierInformer* sold_inform;
 public:
-    virtual void work();
+    void work() override;
     void kill();
     void scare();
 

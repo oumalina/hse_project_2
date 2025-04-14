@@ -11,7 +11,7 @@ private:
     GeneralInformer* geninf;
     CollectorInformer* colinf;
 public:
-    virtual void work();
+    void work() override;
     void collect();
 
     virtual void updateGeneral(int, int, int, int) override;

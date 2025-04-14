@@ -11,7 +11,7 @@ class ant {
 private:
     int age = 0;
     int health = 0;
-    std::string location = "none";
+    int x, y;
     std::string *role;
     Role* current_role;
 public:
@@ -20,6 +20,8 @@ public:
         delete current_role;
     }
     void performWork();
+    void move();
+    bool IsAlive();
 };
 
 
@@ -29,9 +31,3 @@ public:
 //     age = initial_age;
 //     health = initial_health;
 // }
-
-void ant::performWork() {
-    if (current_role) {
-        current_role->work();
-    }
-}
