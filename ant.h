@@ -26,6 +26,7 @@ private:
 public:
     // Ant(float x, float y);
     Ant(Role *initial_role, int role_from_enum, int initial_age, int initial_health, int x_coord=0, int y_coord=0);
+    ~Ant();
 	/*~ant() {
         delete current_role;
     } это то же самое что и death()? */

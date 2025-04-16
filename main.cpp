@@ -54,9 +54,9 @@ int main()
     const int SLEEP_FOR_MS = 250;
     vector <Ant*> array_ants;
     
-    Ant a1 = Ant(new Babysitter, BABYSITTER, 3, 100, 20, 20);
+    Ant *a1 = new Ant(new Babysitter, BABYSITTER, 3, 100, 20, 20);
     cout << "creating ant..." << endl;
-    array_ants.push_back(&a1);
+    array_ants.push_back(a1);
     while (flag)
     {
 
@@ -70,5 +70,6 @@ int main()
         usleep(SLEEP_FOR_MS);
     }
 
+    delete a1;
     return 0;
 }

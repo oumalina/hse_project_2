@@ -28,7 +28,10 @@ Ant::Ant(Role* initial_role, int role_from_enum, int initial_age=0, int initial_
     y = coord_y;
 }
 
-
+Ant::~Ant()
+{
+    delete current_role;
+}
 
 bool Ant::isAlive()
 {
