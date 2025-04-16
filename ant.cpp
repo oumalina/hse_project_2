@@ -100,8 +100,8 @@ void Ant::lower_health(int damage) {
 
 void Ant::increase_health(int health) {
     this->health += health;
-    if (this->health > max_age)
-        this->health = max_age;
+    if (this->health > max_health)
+        this->health = max_health;
 }
 
 void Ant::setTarget(const float x, const float y) {
