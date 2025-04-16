@@ -103,7 +103,7 @@ void Ant::death() {
 
 void Ant::lower_health(int damage) {
     health -= damage;
-    if (health <= start_age) {
+    if (health <= 0) {
         death();
     }
 }
