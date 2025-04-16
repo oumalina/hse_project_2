@@ -1,12 +1,12 @@
 #include "food.h"
 #include <stdlib.h>
 
-void food::expire()
+void Food::expire()
 {
     //изменение текстурки
 }
 
-food::food()
+void Food::food()
 {
     x = rand() % 1260;
 	y = rand() % 700;

@@ -8,21 +8,19 @@
 // using std::endl;
 
 class ant {
+
 private:
+    bool need_to_move = true;
     int age = 0;
-    int health = 0;
-    int x, y;
+    int health = start_age;
+    float x, y;
+    float target_x, target_y;
+    Role* current_role = nullptr;
 
     float last_update_time = 0.0f;
     const float update_time_interval = 5.0f;
-    const int babysitter_age = 2;
-    const int soldier_age = 5;
-    const int collector_age = 8;
-    const int cleaner_age = 10;
-    const int max_age = 12;
+    const float age_update_time_interval = 20.0f;
 
-    std::string *role;
-    Role* current_role;
 public:
     ant(Role*, int, int);
 	/*~ant() {
@@ -30,9 +28,25 @@ public:
     } это то же самое что и death()? */
     void performWork();
     void move();
-    bool IsAlive();
-    void updateRole(const float time);
+    bool isAlive();
     void death();
+
+    void updateRole();
+    void lower_health(const int damage);
+    void increase_health(const int health);
+    void update(const float time);
+    void updateAge(const float time);
+    void setRole(Role *new_role);
+    void setTarget(const float x, const float y);
+    Role *getRole() const;
+
+    static constexpr int start_age = 0;
+    static constexpr int babysitter_age = 2;
+    static constexpr int soldier_age = 5;
+    static constexpr int collector_age = 8;
+    static constexpr int cleaner_age = 10;
+    static constexpr int max_age = 12;
+    static constexpr int speed = 2;
 };
 
 

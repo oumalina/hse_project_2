@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-class hill {
+class Hill {
 private:
     int size = 0;
     int ant_amount = 0;

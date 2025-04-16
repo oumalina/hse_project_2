@@ -4,7 +4,7 @@
 
 class SoldierInformer;
 
-class soldier : public RoleObserver, public Role
+class Soldier : public RoleObserver, public Role
 {
 private:
     SoldierInformer* sold_inform;
@@ -17,7 +17,7 @@ public:
 };
 
 
-void soldier::update(int targ_x, int targ_y) {
+void Soldier::update(int targ_x, int targ_y) {
     target_coord_x = targ_x;
     target_coord_y = targ_y;
 }

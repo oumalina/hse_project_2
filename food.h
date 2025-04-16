@@ -1,10 +1,9 @@
 #pragma once
 
-class food
-{
+class Food {
     public:
         void expire();
-        food();
+        void food();
     private:
-        int x, y;
+        float x, y;
 };
