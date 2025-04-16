@@ -22,16 +22,16 @@
 Role* Ant::new_role_by_enum(int role_enum) {
     switch (role_enum)
     {
-    case 0:
+    case CHILD:
         return new Child;
         break;
-    case 1:
+    case BABYSITTER:
         return new Babysitter;
-    case 2:
+    case SOLDIER:
         return new Soldier;
-    case 3:
+    case COLLECTOR:
         return new Collector;
-    case 4:
+    case CLEANER:
         return new Cleaner;
     default:
         break;
@@ -75,6 +75,11 @@ Role *Ant::getRole() const {
     return current_role;
 }
 
+// void Ant::ageUp(void)
+// {
+//     this->age++;
+//     updateRole();
+// }
 
 void Ant::setRole(Role *new_role) {
     if (current_role != nullptr) {
@@ -82,7 +87,7 @@ void Ant::setRole(Role *new_role) {
     }
     current_role = new_role;
     /*
-    Написать:
+    Напис)ать:
     for (для всех подписчиков) {
         меняем роль;
     }
