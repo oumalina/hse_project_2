@@ -18,7 +18,8 @@
 #include "soldier.cpp"
 #include "collector.cpp"
 
-//весь main писал chatgpt так что вопросы к нему
+#include <SFML/Graphics.hpp>
+
 int main() {
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // seed для rand()
 
@@ -35,34 +36,64 @@ int main() {
         ants.push_back(std::make_unique<Ant>(x, y));
     }
 
-    Hill hill(FIELD_WIDTH/2, FIELD_HEIGHT/2);
+    Hill hill(FIELD_WIDTH / 2, FIELD_HEIGHT / 2);
 
-    float delta_time = 0.1f; // Симуляция времени: 0.1 условной секунды за итерацию
+    // Создание окна
+    sf::RenderWindow window(sf::VideoMode({FIELD_WIDTH, FIELD_HEIGHT}), "Ant Simulation");
+    window.setFramerateLimit(60);
+
+    // Визуальный объект для муравейника
+    sf::CircleShape hillShape(30.f);
+    hillShape.setFillColor(sf::Color(139, 69, 19)); // коричневый
+    hillShape.setOrigin(sf::Vector2f(30.f, 30.f));
+    hillShape.setPosition(sf::Vector2f(hill.getX(), hill.getY()));
 
     // Главный цикл
-    while (true) {
+    sf::Clock clock; // Часы для отслеживания времени
+    while (window.isOpen()) {
+        // Работа с событиями
+        while (auto event = window.pollEvent()) {
+            if (event->is<sf::Event::Closed>()) {
+                window.close();
+            }
+        }
+
+        // Вычисляем дельту времени
+        float delta_time = clock.restart().asSeconds();
+
         bool any_alive = false;
 
+        // Обновление муравьев
         for (auto& ant : ants) {
             if (ant->isAlive()) {
-                ant->update(delta_time);
+                ant->update(delta_time); // Здесь муравей обновляет свои координаты
                 any_alive = true;
             }
         }
 
-        hill.update(delta_time);
+        hill.update(delta_time); // Если требуется, обновляем муравейник
 
         if (!any_alive) {
             std::cout << "Все муравьи умерли. Конец симуляции." << std::endl;
             break;
         }
 
-        new Food();
+        // Отрисовка
+        window.clear(sf::Color::White);
+        window.draw(hillShape);
 
-        // Подождем немного, чтобы "плавно" шло (имитируем FPS)
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        for (const auto& ant : ants) {
+            if (ant->isAlive()) {
+                sf::CircleShape antShape(5.f);
+                antShape.setFillColor(sf::Color::Black);
+                antShape.setOrigin(sf::Vector2f(5.f, 5.f));
+                antShape.setPosition(sf::Vector2f(ant->getX(), ant->getY())); // Получаем обновлённые координаты
+                window.draw(antShape);
+            }
+        }
 
-        std::cout << "Тик..." << std::endl;
+        window.display();
     }
+
     return 0;
 }

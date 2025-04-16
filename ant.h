@@ -22,6 +22,9 @@ private:
     const float age_update_time_interval = 20.0f;
 
 public:
+    float getX() const { return x; }
+    float getY() const { return y; }
+
     Ant(float x, float y);
 	/*~ant() {
         delete current_role;

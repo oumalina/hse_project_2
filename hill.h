@@ -14,6 +14,9 @@ private:
     float x;
     float y;
 public:
+    float getX() const { return x; }
+    float getY() const { return y; }
+
     static constexpr float update_time_interval = 10.0f;
     Hill(float, float);
 	void size_up();
