@@ -1,4 +1,5 @@
 #include "ant.h"
+#include "child.h"
 #include "babysitter.h"
 #include "soldier.h"
 #include "cleaner.h"
@@ -17,10 +18,31 @@
 //     target_y = initial_y;
 // }
 
+/////////
+Role* Ant::new_role_by_enum(int role_enum) {
+    switch (role_enum)
+    {
+    case 0:
+        return new Child;
+        break;
+    case 1:
+        return new Babysitter;
+    case 2:
+        return new Soldier;
+    case 3:
+        return new Collector;
+    case 4:
+        return new Cleaner;
+    default:
+        break;
+    }
+}
+/////////
 
-Ant::Ant(Role* initial_role, int role_from_enum, int initial_age=0, int initial_health=100, int coord_x, int coord_y) {
+Ant::Ant(/*Role* initial_role,*/ int role_from_enum=0, int initial_age=0, int initial_health=100, int coord_x, int coord_y) {
     // cout << "ant constructor" << endl;
-    current_role = initial_role; 
+
+    current_role = new_role_by_enum(role_from_enum);
     role_name = role_from_enum;
     age = initial_age;
     health = initial_health;

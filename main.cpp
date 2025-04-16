@@ -45,18 +45,35 @@ void sleepcp(int milliseconds) // Cross-platform sleep function
 const int FIELD_X = 600;
 const int FIELD_Y = 600;
 
-int main()
-{
+
+void createAnt(vector <Ant*>& array, int role_from_enum, int pos_x, int pos_y, int init_age, int init_health, 
+                GeneralInformer* geninf=nullptr, SoldierInformer* soldinf=nullptr, CollectorInformer* collinf=nullptr) {
+    Ant *a1 = new Ant(role_from_enum, init_age, init_health, pos_x, pos_y);
+    cout << "creating ant..." << endl;
+    array.push_back(a1);
+    if (geninf)
+        geninf->attach(reinterpret_cast<GeneralObserver*>(a1->getRole())); // cast Role* to GeneralObserver*
+    if (collinf)
+        collinf->attach(reinterpret_cast<RoleObserver*>(a1->getRole())); // cast Role* to RoleObserver*
+    if (soldinf)
+        collinf->attach(reinterpret_cast<RoleObserver*>(a1->getRole()));
+}
+
+
+int main(void) {
     bool flag = true;
     int loop = 0; 
     int year = 0;
     const int LOOPS_PER_YEAR = 4;
     const int SLEEP_FOR_MS = 250;
+
     vector <Ant*> array_ants;
-    
-    Ant *a1 = new Ant(new Babysitter, BABYSITTER, 3, 100, 20, 20);
-    cout << "creating ant..." << endl;
-    array_ants.push_back(a1);
+    GeneralInformer GENINF;
+    SoldierInformer SOLDINF;
+    CollectorInformer COLDINF;
+
+    createAnt(array_ants, BABYSITTER, 20, 20, 3, 100, &GENINF);
+
     while (flag)
     {
 
@@ -69,7 +86,10 @@ int main()
         }
         usleep(SLEEP_FOR_MS);
     }
+ 
+    for (Ant* c_ant: array_ants) {
+        if (c_ant) delete c_ant;
+    }
 
-    delete a1;
     return 0;
 }

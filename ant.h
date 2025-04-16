@@ -25,7 +25,7 @@ private:
 
 public:
     // Ant(float x, float y);
-    Ant(Role *initial_role, int role_from_enum, int initial_age, int initial_health, int x_coord=0, int y_coord=0);
+    Ant(/*Role *initial_role,*/ int role_from_enum, int initial_age, int initial_health, int x_coord=0, int y_coord=0);
     ~Ant();
 	/*~ant() {
         delete current_role;
@@ -34,6 +34,8 @@ public:
     void move();
     bool isAlive();
     void death();
+
+    static Role* new_role_by_enum(int);
 
     void updateRole();
     void lower_health(const int damage);
