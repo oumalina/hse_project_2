@@ -1,6 +1,24 @@
 #include <iostream>
 #include <time.h>
 
+#include "ant.h"
+#include "hill.h"
+
+#include "role.h"
+
+#include "role_enum.h"
+
+#include "child.h"
+#include "babysitter.h"
+#include "cleaner.h"
+#include "collector.h"
+#include "soldier.h"
+
+#include "general_informer.h"
+#include "soldier_informer.h"
+#include "collector_informer.h"
+
+
 #ifdef _WIN32
     #include <windows.h>
 #else
