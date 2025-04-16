@@ -2,6 +2,7 @@
 #include <string>
 #include "role.h"
 #include "child.h"
+#include "role_enum.h"
 
 // #include <iostream>
 // using std::cout;
@@ -16,6 +17,7 @@ private:
     float x, y;
     float target_x, target_y;
     Role* current_role;
+    int role_name;
 
     // float last_update_time = 0.0f;
     // const float update_time_interval = 5.0f;
@@ -23,7 +25,7 @@ private:
 
 public:
     // Ant(float x, float y);
-    Ant(Role *initial_role, int initial_age, int initial_health);
+    Ant(Role *initial_role, int role_from_enum, int initial_age, int initial_health);
 	/*~ant() {
         delete current_role;
     } это то же самое что и death()? */
