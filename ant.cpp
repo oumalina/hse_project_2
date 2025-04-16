@@ -1,3 +1,4 @@
+#include <math.h>
 #include "ant.h"
 #include "babysitter.h"
 #include "soldier.h"
@@ -114,6 +115,8 @@ void Ant::update(const float time) {
         return;
 
     updateAge(time);
+    
+    performWork();
 
     if (need_to_move && getRole() != nullptr) {
         need_to_move = false;

@@ -2,7 +2,8 @@
 
 void Soldier::work()
 {
-    
+    //заменить на реальную работу
+    std::cout << "Солдат солдатит." << std::endl;
 }
 
 void Soldier::update(int targ_x, int targ_y) {

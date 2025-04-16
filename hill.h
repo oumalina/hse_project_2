@@ -11,8 +11,11 @@ private:
     int food_max_capacity = 100;
     int ant_max_capacity = 100;
 
-    const float update_time_interval = 10.0f;
+    float x;
+    float y;
 public:
+    static constexpr float update_time_interval = 10.0f;
+    Hill(float, float);
 	void size_up();
     void shrink();
     void update(float time);

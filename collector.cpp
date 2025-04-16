@@ -2,7 +2,8 @@
 
 void Collector::work()
 {
-    
+    //заменить на реальную работу
+    std::cout << "Коллектор коллекторит." << std::endl;
 }
 
 void Collector::updateGeneral(int enemy_cx, int enemy_cy, int baby_cx, int baby_cy) {
