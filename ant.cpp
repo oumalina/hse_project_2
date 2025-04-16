@@ -4,16 +4,26 @@
 #include "cleaner.h"
 #include "collector.h"
 
-Ant::Ant(float initial_x, float initial_y) {
-    current_role = nullptr; 
-    age = start_age;
-    health = max_health;
-    need_to_move = true;
-    x = initial_x;
-    y = initial_y;
-    target_x = initial_x;
-    target_y = initial_y;
+// Ant::Ant(float initial_x, float initial_y) {
+//     current_role = nullptr; 
+//     age = start_age;
+//     health = max_health;
+//     need_to_move = true;
+//     x = initial_x;
+//     y = initial_y;
+//     target_x = initial_x;
+//     target_y = initial_y;
+// }
+
+
+Ant::Ant(Role* initial_role, int initial_age=0, int initial_health=100) {
+    // cout << "ant constructor" << endl;
+    current_role = initial_role; 
+    age = initial_age;
+    health = initial_health;
 }
+
+
 
 bool Ant::isAlive()
 {
@@ -72,19 +82,19 @@ void Ant::updateRole() {
     }
 }
 
-void Ant::updateAge(const float time) {
-    last_update_time += time;
+// void Ant::updateAge(const float time) {
+//     last_update_time += time;
 
-    if (last_update_time >= age_update_time_interval) {
-        ++age;
-        last_update_time = 0;
-        updateRole();
-    }
+//     if (last_update_time >= age_update_time_interval) {
+//         ++age;
+//         last_update_time = 0;
+//         updateRole();
+//     }
 
-    if (age >= max_age) {
-        death();
-    }
-}
+//     if (age >= max_age) {
+//         death();
+//     }
+// }
 
 void Ant::death() {
     //кровь-кишки-текстурки
@@ -109,34 +119,34 @@ void Ant::setTarget(const float x, const float y) {
     target_y = y;
 }
 
-void Ant::update(const float time) {
-    if (!isAlive())
-        return;
+// void Ant::update(const float time) {
+//     if (!isAlive())
+//         return;
 
-    updateAge(time);
+//     updateAge(time);
 
-    if (need_to_move && getRole() != nullptr) {
-        need_to_move = false;
-        setTarget(rand() % 1200, rand() % 800);
-    }
+//     if (need_to_move && getRole() != nullptr) {
+//         need_to_move = false;
+//         setTarget(rand() % 1200, rand() % 800);
+//     }
 
-    const float delta_x = target_x - x;
-    const float delta_y = target_y - y;
-    const float distance = sqrt(delta_x * delta_x + delta_y * delta_y);
+//     const float delta_x = target_x - x;
+//     const float delta_y = target_y - y;
+//     const float distance = sqrt(delta_x * delta_x + delta_y * delta_y);
 
-    if (distance < 0.0001) {
-        need_to_move = true;
-        return;
-    }
+//     if (distance < 0.0001) {
+//         need_to_move = true;
+//         return;
+//     }
 
-    const float vector_x = delta_x / distance;
-    const float vector_y = delta_y / distance;
+//     const float vector_x = delta_x / distance;
+//     const float vector_y = delta_y / distance;
 
-    float step = speed * time;
-    if (step > distance) {
-        step = distance;
-    }
+//     float step = speed * time;
+//     if (step > distance) {
+//         step = distance;
+//     }
 
-    x += vector_x * step;
-    y += vector_y * step;
-}
+//     x += vector_x * step;
+//     y += vector_y * step;
+// }

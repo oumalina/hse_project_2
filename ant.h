@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "role.h"
-// #include "child.h"
+#include "child.h"
 
 // #include <iostream>
 // using std::cout;
@@ -10,19 +10,20 @@
 class Ant {
 
 private:
-    bool need_to_move = true;
+    // bool need_to_move = true;
     int age;
     int health;
     float x, y;
     float target_x, target_y;
     Role* current_role;
 
-    float last_update_time = 0.0f;
-    const float update_time_interval = 5.0f;
-    const float age_update_time_interval = 20.0f;
+    // float last_update_time = 0.0f;
+    // const float update_time_interval = 5.0f;
+    // const float age_update_time_interval = 20.0f;
 
 public:
-    Ant(float x, float y);
+    // Ant(float x, float y);
+    Ant(Role *initial_role, int initial_age, int initial_health);
 	/*~ant() {
         delete current_role;
     } это то же самое что и death()? */
