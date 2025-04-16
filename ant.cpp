@@ -18,12 +18,14 @@
 // }
 
 
-Ant::Ant(Role* initial_role, int role_from_enum, int initial_age=0, int initial_health=100) {
+Ant::Ant(Role* initial_role, int role_from_enum, int initial_age=0, int initial_health=100, int coord_x, int coord_y) {
     // cout << "ant constructor" << endl;
     current_role = initial_role; 
     role_name = role_from_enum;
     age = initial_age;
     health = initial_health;
+    x = coord_x;
+    y = coord_y;
 }
 
 

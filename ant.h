@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "role.h"
-#include "child.h"
+// #include "child.h"
 #include "role_enum.h"
 
 // #include <iostream>
@@ -25,7 +25,7 @@ private:
 
 public:
     // Ant(float x, float y);
-    Ant(Role *initial_role, int role_from_enum, int initial_age, int initial_health);
+    Ant(Role *initial_role, int role_from_enum, int initial_age, int initial_health, int x_coord=0, int y_coord=0);
 	/*~ant() {
         delete current_role;
     } это то же самое что и death()? */

@@ -1,0 +1,7 @@
+#include "babysitter.h"
+
+
+void Babysitter::updateGeneral(int enemy_cx, int enemy_cy, int baby_cx, int baby_cy) {
+    baby_coord_x = baby_cx;
+    baby_coord_y = baby_cy;
+}

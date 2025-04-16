@@ -1,5 +1,9 @@
 #include <iostream>
 #include <time.h>
+#include <vector>
+using std::vector;
+using std::cout;
+using std::endl;
 
 #include "ant.h"
 #include "hill.h"
@@ -38,6 +42,9 @@ void sleepcp(int milliseconds) // Cross-platform sleep function
     #endif // _WIN32
 }
 
+const int FIELD_X = 600;
+const int FIELD_Y = 600;
+
 int main()
 {
     bool flag = true;
@@ -45,12 +52,20 @@ int main()
     int year = 0;
     const int LOOPS_PER_YEAR = 4;
     const int SLEEP_FOR_MS = 250;
+    vector <Ant*> array_ants;
+    
+    Ant a1 = Ant(new Babysitter, BABYSITTER, 3, 100, 20, 20);
+    cout << "creating ant..." << endl;
+    array_ants.push_back(&a1);
     while (flag)
     {
 
         loop++;
         if (loop % LOOPS_PER_YEAR == 0) {
             year++;
+        }
+        if (year == 50) {
+            flag = false;
         }
         usleep(SLEEP_FOR_MS);
     }

@@ -9,7 +9,7 @@ class Soldier : public RoleObserver, public Role
 private:
     SoldierInformer* sold_inform;
 public:
-    void work() override;
+    void work() override {};
     void kill();
     void scare();
 
@@ -17,7 +17,3 @@ public:
 };
 
 
-void Soldier::update(int targ_x, int targ_y) {
-    target_coord_x = targ_x;
-    target_coord_y = targ_y;
-}
