@@ -12,6 +12,7 @@ public:
     void work() override {};
     void kill();
     void scare();
+    Soldier(SoldierInformer*);
 
     virtual void update(int targ_x, int targ_y) override;
 };

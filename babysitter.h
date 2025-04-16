@@ -2,7 +2,8 @@
 #include <string>
 #include "role.h"
 
-class GeneralInformer;
+// class GeneralInformer;
+#include "general_informer.h"
 
 class Babysitter : public GeneralObserver, public Role
 {
@@ -11,6 +12,7 @@ private:
 public:
     void work() override {};
     void feed();
+    Babysitter(GeneralInformer* ginf);
 
     virtual void updateGeneral(int enemy_cx, int enemy_cy, int baby_cx, int baby_cy) override;
 };

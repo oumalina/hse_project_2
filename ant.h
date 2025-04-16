@@ -35,7 +35,8 @@ public:
     bool isAlive();
     void death();
 
-    static Role* new_role_by_enum(int);
+    // static Role* new_role_by_enum(int);
+    Role *new_role_by_enum(int role_enum, GeneralInformer *g, SoldierInformer *s, CollectorInformer *c);
 
     void updateRole();
     void lower_health(const int damage);

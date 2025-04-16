@@ -1,6 +1,19 @@
 #include "collector.h"
+#include "general_informer.h"
+#include "collector_informer.h"
 
-void Collector::updateGeneral(int enemy_cx, int enemy_cy, int baby_cx, int baby_cy) {
+
+Collector::Collector(GeneralInformer * p_geninf, CollectorInformer * p_collinf)
+{
+    this->geninf = p_geninf;
+    this->geninf->attach(this);
+
+    this->colinf = p_collinf;
+    this->colinf->attach(this);
+}
+
+void Collector::updateGeneral(int enemy_cx, int enemy_cy, int baby_cx, int baby_cy)
+{
     enemy_coord_x = enemy_cx;
     enemy_coord_y = enemy_cy;
 }

@@ -19,20 +19,21 @@
 // }
 
 /////////
-Role* Ant::new_role_by_enum(int role_enum) {
+Role* Ant::new_role_by_enum(int role_enum, 
+        GeneralInformer* g=nullptr, SoldierInformer* s=nullptr, CollectorInformer* c=nullptr) {
     switch (role_enum)
     {
     case CHILD:
         return new Child;
         break;
     case BABYSITTER:
-        return new Babysitter;
+        return new Babysitter(g);
     case SOLDIER:
-        return new Soldier;
+        return new Soldier(s);
     case COLLECTOR:
-        return new Collector;
+        return new Collector(g, c);
     case CLEANER:
-        return new Cleaner;
+        return new Cleaner(g);
     default:
         break;
     }
