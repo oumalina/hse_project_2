@@ -1,31 +1,42 @@
-#include "ant.h"
+#include "Ant.h"
 #include "babysitter.h"
 #include "soldier.h"
 #include "cleaner.h"
 #include "collector.h"
 
-bool ant::isAlive()
+Ant::Ant(float initial_x, float initial_y) {
+    current_role = nullptr; 
+    age = start_age;
+    health = max_health;
+    need_to_move = true;
+    x = initial_x;
+    y = initial_y;
+    target_x = initial_x;
+    target_y = initial_y;
+}
+
+bool Ant::isAlive()
 {
     return (health > 0);
 }
 
-void ant::performWork() {
+void Ant::performWork() {
     if (current_role) {
         current_role->work();
     }
 }
 
-void ant::move() {
+void Ant::move() {
     x += (rand() % 3) - 1;
     y += (rand() % 3) - 1;
 }
 
-Role *ant::getRole() const {
+Role *Ant::getRole() const {
     return current_role;
 }
 
 
-void ant::setRole(Role *new_role) {
+void Ant::setRole(Role *new_role) {
     if (current_role != new_role) {
         if (current_role != nullptr) {
             delete current_role;
@@ -40,7 +51,7 @@ void ant::setRole(Role *new_role) {
     }
 }
 
-void ant::updateRole() {
+void Ant::updateRole() {
     switch (age) {
         case babysitter_age:
             setRole(new Babysitter());
@@ -63,7 +74,7 @@ void ant::updateRole() {
     }
 }
 
-void ant::updateAge(const float time) {
+void Ant::updateAge(const float time) {
     last_update_time += time;
 
     if (last_update_time >= age_update_time_interval) {
@@ -77,30 +88,30 @@ void ant::updateAge(const float time) {
     }
 }
 
-void ant::death() {
+void Ant::death() {
     //кровь-кишки-текстурки
     delete current_role;
 }
 
-void ant::lower_health(int damage) {
+void Ant::lower_health(int damage) {
     health -= damage;
     if (health <= start_age) {
         death();
     }
 }
 
-void ant::increase_health(int health) {
+void Ant::increase_health(int health) {
     this->health += health;
     if (this->health > max_age)
         this->health = max_age;
 }
 
-void ant::setTarget(const float x, const float y) {
+void Ant::setTarget(const float x, const float y) {
     target_x = x;
     target_y = y;
 }
 
-void ant::update(const float time) {
+void Ant::update(const float time) {
     if (!isAlive())
         return;
 
