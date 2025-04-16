@@ -21,7 +21,7 @@ bool Ant::isAlive()
 }
 
 void Ant::performWork() {
-    if (current_role) {
+    if (current_role != nullptr) {
         current_role->work();
     }
 }
@@ -37,18 +37,16 @@ Role *Ant::getRole() const {
 
 
 void Ant::setRole(Role *new_role) {
-    if (current_role != new_role) {
-        if (current_role != nullptr) {
-            delete current_role;
-        }
-        current_role = new_role;
-        /*
-        Написать:
-        for (для всех подписчиков) {
-            меняем роль;
-        }
-        */
+    if (current_role != nullptr) {
+        delete current_role;
     }
+    current_role = new_role;
+    /*
+    Написать:
+    for (для всех подписчиков) {
+        меняем роль;
+    }
+    */
 }
 
 void Ant::updateRole() {
