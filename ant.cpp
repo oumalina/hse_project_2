@@ -15,6 +15,12 @@
 //     target_x = initial_x;
 //     target_y = initial_y;
 // }
+
+int Ant::get_curr_role(void)
+{
+    return role_name;
+}
+
 Ant::Ant(float initial_x, float initial_y, int role_enum) 
 {
 
