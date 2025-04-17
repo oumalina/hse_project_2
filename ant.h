@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "role.h"
+#include "role_enum.h"
 // #include "child.h"
 
 // #include <iostream>
@@ -18,14 +19,17 @@ private:
     Role* current_role;
 
     float last_update_time = 0.0f;
+    int role_name;
     const float update_time_interval = 5.0f;
     const float age_update_time_interval = 20.0f;
 
 public:
+    int get_curr_role(void);
     float getX() const { return x; }
     float getY() const { return y; }
 
-    Ant(float x, float y, Role* rl=nullptr);
+    // Ant(float x, float y, Role* rl=nullptr);
+    Ant(float initial_x, float initial_y, int role_enum=CHILD);
 	/*~ant() {
         delete current_role;r
     } это то же самое что и death()? */

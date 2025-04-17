@@ -18,7 +18,7 @@
 #include "soldier.cpp"
 #include "collector.cpp"
 
-
+#include "role_enum.h"
 #include <SFML/Graphics.hpp>
 
 int main() {
@@ -35,8 +35,8 @@ int main() {
     for (int i = 0; i < ANT_COUNT; ++i) {
         float x = static_cast<float>(std::rand() % FIELD_WIDTH);
         float y = static_cast<float>(std::rand() % FIELD_HEIGHT);
-        ants.push_back(std::make_unique<Ant>(x, y, new Babysitter));
-        ants.push_back(std::make_unique<Ant>(x, y, new Soldier));
+        ants.push_back(std::make_unique<Ant>(x, y, BABYSITTER));
+        ants.push_back(std::make_unique<Ant>(x, y, SOLDIER));
         ants.push_back(std::make_unique<Ant>(x, y));
     }
 

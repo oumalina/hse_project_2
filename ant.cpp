@@ -5,8 +5,45 @@
 #include "cleaner.h"
 #include "collector.h"
 
-Ant::Ant(float initial_x, float initial_y, Role* pr) {
-    current_role = pr; 
+// Ant::Ant(float initial_x, float initial_y, Role* pr) {
+//     current_role = pr; 
+//     age = start_age;
+//     health = max_health;
+//     need_to_move = true;
+//     x = initial_x;
+//     y = initial_y;
+//     target_x = initial_x;
+//     target_y = initial_y;
+// }
+Ant::Ant(float initial_x, float initial_y, int role_enum) 
+{
+
+    switch (role_enum)
+    {
+    case CHILD:
+        current_role = nullptr;
+        role_name = CHILD;
+        break;
+    case BABYSITTER:
+        current_role = new Babysitter;
+        role_name = BABYSITTER;
+        break;
+    case SOLDIER:
+        current_role = new Soldier;
+        role_name = SOLDIER;
+        break;
+    case COLLECTOR:
+        current_role = new Collector;
+        role_name = COLLECTOR;
+        break;
+    case CLEANER:
+        current_role = new Cleaner;
+        role_name = CLEANER;
+        break;
+    default:
+        break;
+    }
+    // current_role = pr;
     age = start_age;
     health = max_health;
     need_to_move = true;
@@ -15,6 +52,8 @@ Ant::Ant(float initial_x, float initial_y, Role* pr) {
     target_x = initial_x;
     target_y = initial_y;
 }
+
+
 
 bool Ant::isAlive()
 {
