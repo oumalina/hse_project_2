@@ -119,17 +119,14 @@ int main() {
                         ant_f->is_busy = false;
                     }
                 }
-                else
-                {
-                    auto curr_food = foods.front();
-                    float tempx = curr_food.getX();
-                    float tempy = curr_food.getY();
-                    float delta_x = ant_f->getX() - tempx;
-                    float delta_y = ant_f->getY() - tempy;
+                else {
+                    float delta_x = ant_f->getX() - FIELD_WIDTH / 2;
+                    float delta_y = ant_f->getY() - FIELD_HEIGHT / 2;
                     float distance = sqrt(delta_x * delta_x + delta_y * delta_y);
                     if (distance < 0.1)
                     {
-   
+                        ant_f->is_busy = false;
+                        ant_f->carry_food = false;
                     }
                 }
             }
@@ -182,6 +179,15 @@ int main() {
                 }
         
                 window.draw(roleDot);
+                if (ant->get_curr_role() == COLLECTOR && ant->carry_food)
+                {
+                    sf::CircleShape foodDot(2.f);
+                    foodDot.setFillColor(sf::Color::Green);
+                    foodDot.setOrigin(sf::Vector2f(2.f, 2.f));
+                    // Положение немного смещено влево вверх от муравья
+                    foodDot.setPosition(ant->getX() - 4.f, ant->getY() - 4.f);
+                    window.draw(foodDot);
+                }
             }
         }
         
