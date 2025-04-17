@@ -1,4 +1,11 @@
 #include "cleaner.h"
+#include "general_informer.h"
+
+Cleaner::Cleaner(GeneralInformer * p_geninf)
+{
+    this->geninf = p_geninf;
+    this->geninf->attach(this);
+}
 
 void Cleaner::work()
 {
