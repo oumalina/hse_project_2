@@ -24,9 +24,13 @@ private:
     // const float age_update_time_interval = 20.0f;
 
 public:
+
     // Ant(float x, float y);
     Ant(/*Role *initial_role,*/ int role_from_enum, int initial_age, int initial_health, int x_coord=0, int y_coord=0);
     ~Ant();
+    float getX() const { return x; }
+    float getY() const { return y; }
+
 	/*~ant() {
         delete current_role;
     } это то же самое что и death()? */

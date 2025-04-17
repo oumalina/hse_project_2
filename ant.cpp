@@ -1,3 +1,4 @@
+#include <math.h>
 #include "ant.h"
 #include "child.h"
 #include "babysitter.h"
@@ -160,6 +161,9 @@ void Ant::setTarget(const float x, const float y) {
 //         return;
 
 //     updateAge(time);
+    
+//     performWork();
+
 
 //     if (need_to_move && getRole() != nullptr) {
 //         need_to_move = false;

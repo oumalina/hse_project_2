@@ -1,14 +1,33 @@
 #include "food.h"
 #include <stdlib.h>
 
+Food::Food()
+{
+    x = rand() % 1260;
+	y = rand() % 700;
+    //появление текстурки
+}
+
+void Food::update(float time)
+{
+    if (last_update_time < 0) return;
+
+    last_update_time += time;
+
+    if (last_update_time >= exp_time_interval) {
+        last_update_time = -1;
+        expire();
+    }
+}
+
 void Food::expire()
 {
     //изменение текстурки
 }
 
-void Food::food()
+void Food::move(float new_x, float new_y) 
 {
-    x = rand() % 1260;
-	y = rand() % 700;
-    //появление текстурки
+    x = new_x;
+    y = new_y;
+    last_update_time = -1; //потому что переместить можно только в склад, а там ничего не портится
 }

@@ -1,94 +1,98 @@
 #include <iostream>
-#include <time.h>
 #include <vector>
-using std::vector;
-using std::cout;
-using std::endl;
+#include <memory>
+#include <chrono>
+#include <thread>
+#include <cstdlib>
+#include <ctime>
 
 #include "ant.h"
+#include "ant.cpp"
 #include "hill.h"
+#include "hill.cpp"
+#include "food.h"
+#include "food.cpp"
 
-#include "role.h"
+#include "cleaner.cpp"
+#include "babysitter.cpp"
+#include "soldier.cpp"
+#include "collector.cpp"
 
-#include "role_enum.h"
+#include <SFML/Graphics.hpp>
 
-#include "child.h"
-#include "babysitter.h"
-#include "cleaner.h"
-#include "collector.h"
-#include "soldier.h"
+int main() {
+    std::srand(static_cast<unsigned int>(std::time(nullptr))); // seed для rand()
 
-#include "general_informer.h"
-#include "soldier_informer.h"
-#include "collector_informer.h"
+    const int ANT_COUNT = 10;
+    const int FIELD_WIDTH = 1200;
+    const int FIELD_HEIGHT = 800;
 
+    std::vector<std::unique_ptr<Ant>> ants;
 
-#ifdef _WIN32
-    #include <windows.h>
-#else
-    #include <unistd.h>
-#endif // _WIN32
-
-using namespace std;
-
-void sleepcp(int milliseconds);
-
-void sleepcp(int milliseconds) // Cross-platform sleep function
-{
-    #ifdef _WIN32
-        Sleep(milliseconds);
-    #else
-        usleep(milliseconds * 1000);
-    #endif // _WIN32
-}
-
-const int FIELD_X = 600;
-const int FIELD_Y = 600;
-
-
-void createAnt(vector <Ant*>& array, int role_from_enum, int pos_x, int pos_y, int init_age, int init_health, 
-                GeneralInformer* geninf=nullptr, SoldierInformer* soldinf=nullptr, CollectorInformer* collinf=nullptr) {
-    Ant *a1 = new Ant(role_from_enum, init_age, init_health, pos_x, pos_y);
-    cout << "creating ant..." << endl;
-    array.push_back(a1);
-    if (geninf)
-        geninf->attach(reinterpret_cast<GeneralObserver*>(a1->getRole())); // cast Role* to GeneralObserver*
-    if (collinf)
-        collinf->attach(reinterpret_cast<RoleObserver*>(a1->getRole())); // cast Role* to RoleObserver*
-    if (soldinf)
-        collinf->attach(reinterpret_cast<RoleObserver*>(a1->getRole()));
-}
-
-
-int main(void) {
-    bool flag = true;
-    int loop = 0; 
-    int year = 0;
-    const int LOOPS_PER_YEAR = 4;
-    const int SLEEP_FOR_MS = 250;
-
-    vector <Ant*> array_ants;
-    GeneralInformer GENINF;
-    SoldierInformer SOLDINF;
-    CollectorInformer COLDINF;
-
-    createAnt(array_ants, BABYSITTER, 20, 20, 3, 100, &GENINF);
-
-    while (flag)
-    {
-
-        loop++;
-        if (loop % LOOPS_PER_YEAR == 0) {
-            year++;
-        }
-        if (year == 50) {
-            flag = false;
-        }
-        usleep(SLEEP_FOR_MS);
+    // Создание муравьёв
+    for (int i = 0; i < ANT_COUNT; ++i) {
+        float x = static_cast<float>(std::rand() % FIELD_WIDTH);
+        float y = static_cast<float>(std::rand() % FIELD_HEIGHT);
+        ants.push_back(std::make_unique<Ant>(x, y));
     }
- 
-    for (Ant* c_ant: array_ants) {
-        if (c_ant) delete c_ant;
+
+    Hill hill(FIELD_WIDTH / 2, FIELD_HEIGHT / 2);
+
+    // Создание окна
+    sf::RenderWindow window(sf::VideoMode({FIELD_WIDTH, FIELD_HEIGHT}), "Ant Simulation");
+    window.setFramerateLimit(60);
+
+    // Визуальный объект для муравейника
+    sf::CircleShape hillShape(30.f);
+    hillShape.setFillColor(sf::Color(139, 69, 19)); // коричневый
+    hillShape.setOrigin(sf::Vector2f(30.f, 30.f));
+    hillShape.setPosition(sf::Vector2f(hill.getX(), hill.getY()));
+
+    // Главный цикл
+    sf::Clock clock; // Часы для отслеживания времени
+    while (window.isOpen()) {
+        // Работа с событиями
+        while (auto event = window.pollEvent()) {
+            if (event->is<sf::Event::Closed>()) {
+                window.close();
+            }
+        }
+
+        // Вычисляем дельту времени
+        float delta_time = clock.restart().asSeconds();
+
+        bool any_alive = false;
+
+        // Обновление муравьев
+        for (auto& ant : ants) {
+            if (ant->isAlive()) {
+                ant->update(delta_time); // Здесь муравей обновляет свои координаты
+                any_alive = true;
+            }
+        }
+
+        hill.update(delta_time); // Если требуется, обновляем муравейник
+
+        if (!any_alive) {
+            std::cout << "Все муравьи умерли. Конец симуляции." << std::endl;
+            break;
+        }
+
+        // Отрисовка
+        window.clear(sf::Color::White);
+        window.draw(hillShape);
+
+        for (const auto& ant : ants) {
+            if (ant->isAlive()) {
+                sf::CircleShape antShape(5.f);
+                antShape.setFillColor(sf::Color::Black);
+                antShape.setOrigin(sf::Vector2f(5.f, 5.f));
+                antShape.setPosition(sf::Vector2f(ant->getX(), ant->getY())); // Получаем обновлённые координаты
+                window.draw(antShape);
+            }
+        }
+
+        window.display();
     }
 
     return 0;
