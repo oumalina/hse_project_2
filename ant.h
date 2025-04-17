@@ -24,6 +24,9 @@ private:
     const float age_update_time_interval = 20.0f;
 
 public:
+    bool is_busy = false;
+    bool carry_food = false;
+
     int get_curr_role(void);
     float getX() const { return x; }
     float getY() const { return y; }

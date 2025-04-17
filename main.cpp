@@ -37,6 +37,7 @@ int main() {
         float y = static_cast<float>(std::rand() % FIELD_HEIGHT);
         ants.push_back(std::make_unique<Ant>(x, y, BABYSITTER));
         ants.push_back(std::make_unique<Ant>(x, y, SOLDIER));
+        ants.push_back(std::make_unique<Ant>(x, y, COLLECTOR));
         ants.push_back(std::make_unique<Ant>(x, y));
     }
 
@@ -55,14 +56,14 @@ int main() {
     // Главный цикл
     sf::Clock clock; // Часы для отслеживания времени
     int tick_counter = 0;
-    int next_food_spawn_tick = 60 + rand() % 120;
+    int next_food_spawn_tick = 600 + rand() % 120;
     while (window.isOpen()) {
-        // sf::Event event; //vlad
+        sf::Event event; //vlad
         // Работа с событиями
-        while (auto event = window.pollEvent()) {
-        // while (window.pollEvent(event)) { //vlad
-            // if (event.type == sf::Event::Closed) { //vlad
-            if (event->is<sf::Event::Closed>()) {
+        // while (auto event = window.pollEvent()) {
+        while (window.pollEvent(event)) { //vlad
+            if (event.type == sf::Event::Closed) { //vlad
+            // if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
         }
@@ -86,6 +87,51 @@ int main() {
                 it = foods.erase(it);
             } else {
                 ++it;
+            }
+        }
+
+        for (auto &ant_f : ants) {
+            if (ant_f->isAlive() && ant_f->get_curr_role() == COLLECTOR)
+            {
+                if (!ant_f->carry_food)
+                {
+                    if (!foods.empty())
+                    {
+                        auto curr_food = foods.front();
+                        float tempx = curr_food.getX();
+                        float tempy = curr_food.getY();
+                        ant_f->setTarget(tempx, tempy);
+                        ant_f->is_busy = true;
+
+                        float delta_x = ant_f->getX() - tempx;
+                        float delta_y = ant_f->getY() - tempy;
+                        float distance = sqrt(delta_x * delta_x + delta_y * delta_y);
+                        if (distance < 0.1)
+                        {
+                            // ant_f->is_busy = false;
+                            ant_f->carry_food = true;
+                            ant_f->setTarget(FIELD_WIDTH / 2, FIELD_HEIGHT / 2);
+                            foods.erase(foods.begin()); // yдаление еды
+                        }
+                    }
+                    else
+                    {
+                        ant_f->is_busy = false;
+                    }
+                }
+                else
+                {
+                    auto curr_food = foods.front();
+                    float tempx = curr_food.getX();
+                    float tempy = curr_food.getY();
+                    float delta_x = ant_f->getX() - tempx;
+                    float delta_y = ant_f->getY() - tempy;
+                    float distance = sqrt(delta_x * delta_x + delta_y * delta_y);
+                    if (distance < 0.1)
+                    {
+   
+                    }
+                }
             }
         }
 

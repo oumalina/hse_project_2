@@ -163,7 +163,7 @@ void Ant::update(const float time) {
     
     performWork();
 
-    if (need_to_move && getRole() != nullptr) {
+    if (need_to_move && getRole() != nullptr && is_busy==false) {
         need_to_move = false;
         setTarget(rand() % 1200, rand() % 800);
     }
