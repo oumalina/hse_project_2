@@ -89,7 +89,7 @@ void Ant::setRole(Role *new_role) {
     }
     current_role = new_role;
     /*
-    Напис)ать:
+    Написать:
     for (для всех подписчиков) {
         меняем роль;
     }
@@ -119,19 +119,19 @@ void Ant::updateRole() {
     }
 }
 
-// void Ant::updateAge(const float time) {
-//     last_update_time += time;
+void Ant::updateAge(const float time) {
+    last_update_time += time;
 
-//     if (last_update_time >= age_update_time_interval) {
-//         ++age;
-//         last_update_time = 0;
-//         updateRole();
-//     }
+    if (last_update_time >= age_update_time_interval) {
+        ++age;
+        last_update_time = 0;
+        updateRole();
+    }
 
-//     if (age >= max_age) {
-//         death();
-//     }
-// }
+    if (age >= max_age) {
+        death();
+    }
+}
 
 void Ant::death() {
     //кровь-кишки-текстурки
@@ -156,37 +156,37 @@ void Ant::setTarget(const float x, const float y) {
     target_y = y;
 }
 
-// void Ant::update(const float time) {
-//     if (!isAlive())
-//         return;
+void Ant::update(const float time) {
+    if (!isAlive())
+        return;
 
-//     updateAge(time);
+    updateAge(time);
     
-//     performWork();
+    performWork();
 
 
-//     if (need_to_move && getRole() != nullptr) {
-//         need_to_move = false;
-//         setTarget(rand() % 1200, rand() % 800);
-//     }
+    if (need_to_move && getRole() != nullptr) {
+        need_to_move = false;
+        setTarget(rand() % 1200, rand() % 800);
+    }
 
-//     const float delta_x = target_x - x;
-//     const float delta_y = target_y - y;
-//     const float distance = sqrt(delta_x * delta_x + delta_y * delta_y);
+    const float delta_x = target_x - x;
+    const float delta_y = target_y - y;
+    const float distance = sqrt(delta_x * delta_x + delta_y * delta_y);
 
-//     if (distance < 0.0001) {
-//         need_to_move = true;
-//         return;
-//     }
+    if (distance < 0.0001) {
+        need_to_move = true;
+        return;
+    }
 
-//     const float vector_x = delta_x / distance;
-//     const float vector_y = delta_y / distance;
+    const float vector_x = delta_x / distance;
+    const float vector_y = delta_y / distance;
 
-//     float step = speed * time;
-//     if (step > distance) {
-//         step = distance;
-//     }
+    float step = speed * time;
+    if (step > distance) {
+        step = distance;
+    }
 
-//     x += vector_x * step;
-//     y += vector_y * step;
-// }
+    x += vector_x * step;
+    y += vector_y * step;
+}

@@ -10,7 +10,6 @@ private:
     GeneralInformer* geninf;
 public:
     void work() override;
-    void clean();
 
     Cleaner(GeneralInformer *p_geninf);
 
