@@ -51,5 +51,5 @@ public:
     static constexpr int cleaner_age = 10;
     static constexpr int max_age = 12;
     static constexpr int max_health = 12;
-    static constexpr int speed = 2;
+    static constexpr int speed = 10;
 };
