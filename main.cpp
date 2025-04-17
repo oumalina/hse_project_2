@@ -179,13 +179,11 @@ int main() {
                 }
         
                 window.draw(roleDot);
-                if (ant->get_curr_role() == COLLECTOR && ant->carry_food)
-                {
+                if (ant->get_curr_role() == COLLECTOR && ant->carry_food) {
                     sf::CircleShape foodDot(2.f);
                     foodDot.setFillColor(sf::Color::Green);
                     foodDot.setOrigin(sf::Vector2f(2.f, 2.f));
-                    // Положение немного смещено влево вверх от муравья
-                    foodDot.setPosition(ant->getX() - 4.f, ant->getY() - 4.f);
+                    foodDot.setPosition(sf::Vector2f(ant->getX() - 4.f, ant->getY() - 4.f));
                     window.draw(foodDot);
                 }
             }
