@@ -28,6 +28,7 @@ int main() {
     const int FIELD_HEIGHT = 800;
 
     std::vector<std::unique_ptr<Ant>> ants;
+    std::vector<Food> foods;
 
     // Создание муравьёв
     for (int i = 0; i < ANT_COUNT; ++i) {
@@ -50,6 +51,8 @@ int main() {
 
     // Главный цикл
     sf::Clock clock; // Часы для отслеживания времени
+    int tick_counter = 0;
+    int next_food_spawn_tick = 60 + rand() % 120;
     while (window.isOpen()) {
         // Работа с событиями
         while (auto event = window.pollEvent()) {
@@ -73,6 +76,13 @@ int main() {
 
         hill.update(delta_time); // Если требуется, обновляем муравейник
 
+        tick_counter++;
+        if (tick_counter >= next_food_spawn_tick) {
+            foods.emplace_back(); // создаём еду
+            tick_counter = 0;
+            next_food_spawn_tick = 60 + rand() % 120; // заново выбираем интервал
+        }
+
         if (!any_alive) {
             std::cout << "Все муравьи умерли. Конец симуляции." << std::endl;
             break;
@@ -81,6 +91,10 @@ int main() {
         // Отрисовка
         window.clear(sf::Color::White);
         window.draw(hillShape);
+
+        for (const auto& food : foods) {
+            window.draw(food.getShape());
+        }
 
         for (const auto& ant : ants) {
             if (ant->isAlive()) {
