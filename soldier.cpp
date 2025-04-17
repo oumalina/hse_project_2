@@ -1,4 +1,11 @@
 #include "soldier.h"
+#include "soldier_informer.h"
+
+Soldier::Soldier(SoldierInformer *p_soldinf)
+{
+    this->sold_inform = p_soldinf;
+    this->sold_inform->attach(this);
+}
 
 void Soldier::work()
 {

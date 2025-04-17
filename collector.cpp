@@ -1,4 +1,16 @@
 #include "collector.h"
+#include "general_informer.h"
+#include "collector_informer.h"
+
+
+Collector::Collector(GeneralInformer * p_geninf, CollectorInformer * p_collinf)
+{
+    this->geninf = p_geninf;
+    this->geninf->attach(this);
+
+    this->colinf = p_collinf;
+    this->colinf->attach(this);
+}
 
 void Collector::work()
 {
