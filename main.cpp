@@ -56,8 +56,11 @@ int main() {
     int tick_counter = 0;
     int next_food_spawn_tick = 60 + rand() % 120;
     while (window.isOpen()) {
+        // sf::Event event; //vlad
         // Работа с событиями
         while (auto event = window.pollEvent()) {
+        // while (window.pollEvent(event)) { //vlad
+            // if (event.type == sf::Event::Closed) { //vlad
             if (event->is<sf::Event::Closed>()) {
                 window.close();
             }

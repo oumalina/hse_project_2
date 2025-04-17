@@ -5,7 +5,7 @@
 #include "cleaner.h"
 #include "collector.h"
 
-Ant::Ant(float initial_x, float initial_y, Role* pr = nullptr) {
+Ant::Ant(float initial_x, float initial_y, Role* pr) {
     current_role = pr; 
     age = start_age;
     health = max_health;
