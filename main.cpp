@@ -23,7 +23,7 @@
 int main() {
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // seed для rand()
 
-    const int ANT_COUNT = 10;
+    const int ANT_COUNT = 5;
     const int FIELD_WIDTH = 1200;
     const int FIELD_HEIGHT = 800;
 
@@ -34,6 +34,8 @@ int main() {
     for (int i = 0; i < ANT_COUNT; ++i) {
         float x = static_cast<float>(std::rand() % FIELD_WIDTH);
         float y = static_cast<float>(std::rand() % FIELD_HEIGHT);
+        ants.push_back(std::make_unique<Ant>(x, y, new Babysitter));
+        ants.push_back(std::make_unique<Ant>(x, y, new Soldier));
         ants.push_back(std::make_unique<Ant>(x, y));
     }
 

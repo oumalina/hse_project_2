@@ -25,7 +25,7 @@ public:
     float getX() const { return x; }
     float getY() const { return y; }
 
-    Ant(float x, float y);
+    Ant(float x, float y, Role*);
 	/*~ant() {
         delete current_role;
     } это то же самое что и death()? */
