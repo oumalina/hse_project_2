@@ -113,13 +113,32 @@ int main() {
 
         for (const auto& ant : ants) {
             if (ant->isAlive()) {
+                // Основной чёрный кружок муравья
                 sf::CircleShape antShape(5.f);
                 antShape.setFillColor(sf::Color::Black);
                 antShape.setOrigin(sf::Vector2f(5.f, 5.f));
-                antShape.setPosition(sf::Vector2f(ant->getX(), ant->getY())); // Получаем обновлённые координаты
+                antShape.setPosition(sf::Vector2f(ant->getX(), ant->getY()));
                 window.draw(antShape);
+        
+                // Цветная точка, обозначающая роль
+                sf::CircleShape roleDot(2.f);
+                roleDot.setOrigin(sf::Vector2f(2.f, 2.f));
+                roleDot.setPosition(sf::Vector2f(ant->getX(), ant->getY()));
+        
+                switch (ant->get_curr_role()) {
+                    case 0: roleDot.setFillColor(sf::Color::Blue); break;      // CHILD
+                    case 1: roleDot.setFillColor(sf::Color::Magenta); break;   // BABYSITTER
+                    case 2: roleDot.setFillColor(sf::Color::Red); break;       // SOLDIER
+                    case 3: roleDot.setFillColor(sf::Color::Green); break;     // COLLECTOR
+                    case 4: roleDot.setFillColor(sf::Color::Cyan); break;      // CLEANER
+                    case 5: roleDot.setFillColor(sf::Color::White); break;     // DEAD
+                    default: roleDot.setFillColor(sf::Color::Yellow); break;   // непредвиденные случаи
+                }
+        
+                window.draw(roleDot);
             }
         }
+        
 
         window.display();
     }
