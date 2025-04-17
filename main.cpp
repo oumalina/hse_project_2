@@ -18,6 +18,7 @@
 #include "soldier.cpp"
 #include "collector.cpp"
 
+
 #include <SFML/Graphics.hpp>
 
 int main() {
@@ -74,13 +75,22 @@ int main() {
             }
         }
 
+        for (auto it = foods.begin(); it != foods.end(); ) {
+            it->update(delta_time);
+            if (it->isExpired()) {
+                it = foods.erase(it);
+            } else {
+                ++it;
+            }
+        }
+
         hill.update(delta_time); // Если требуется, обновляем муравейник
 
         tick_counter++;
         if (tick_counter >= next_food_spawn_tick) {
             foods.emplace_back(); // создаём еду
             tick_counter = 0;
-            next_food_spawn_tick = 60 + rand() % 120; // заново выбираем интервал
+            next_food_spawn_tick = 600 + rand() % 300; // заново выбираем интервал
         }
 
         if (!any_alive) {
