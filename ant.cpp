@@ -29,28 +29,36 @@ Ant::Ant(float initial_x, float initial_y, int role_enum)
     case CHILD:
         current_role = nullptr;
         role_name = CHILD;
+        age = start_age;
         break;
     case BABYSITTER:
         current_role = new Babysitter;
         role_name = BABYSITTER;
+        age = babysitter_age;
         break;
     case SOLDIER:
         current_role = new Soldier;
         role_name = SOLDIER;
+        age = soldier_age;
         break;
     case COLLECTOR:
         current_role = new Collector;
         role_name = COLLECTOR;
+        age = collector_age;
         break;
     case CLEANER:
         current_role = new Cleaner;
         role_name = CLEANER;
+        age = cleaner_age;
         break;
     default:
+        current_role = nullptr;
+        role_name = CHILD;
+        age = start_age;
         break;
     }
     // current_role = pr;
-    age = start_age;
+    // age = start_age;
     health = max_health;
     need_to_move = true;
     x = initial_x;
@@ -82,38 +90,52 @@ Role *Ant::getRole() const {
 }
 
 
-void Ant::setRole(Role *new_role) {
+void Ant::setRole(Role* new_role) {
     if (current_role != nullptr) {
         delete current_role;
     }
     current_role = new_role;
-    /*
-    Написать:
-    for (для всех подписчиков) {
-        меняем роль;
+
+    // 👇 Устанавливаем имя роли (enum), чтобы корректно отображалось
+    if (dynamic_cast<Babysitter*>(new_role)) {
+        role_name = BABYSITTER;
+    } else if (dynamic_cast<Soldier*>(new_role)) {
+        role_name = SOLDIER;
+    } else if (dynamic_cast<Collector*>(new_role)) {
+        role_name = COLLECTOR;
+    } else if (dynamic_cast<Cleaner*>(new_role)) {
+        role_name = CLEANER;
     }
-    */
 }
 
+
 void Ant::updateRole() {
+    // if (carry_food) {
+    //     return;
+    // }
     switch (age) {
         case babysitter_age:
             setRole(new Babysitter());
+            is_busy = false;
             break;
 
         case soldier_age:
             setRole(new Soldier());
+            is_busy = false;
             break;
 
         case collector_age:
             setRole(new Collector());
+            is_busy = false;
             break;
 
         case cleaner_age:
             setRole(new Cleaner());
+            is_busy = false;
             break;
 
         default:
+            is_busy = false;
             break;
     }
 }
@@ -133,8 +155,14 @@ void Ant::updateAge(const float time) {
 }
 
 void Ant::death() {
-    //кровь-кишки-текстурки
-    delete current_role;
+    need_to_move = false;
+
+    if (current_role != nullptr) {
+        delete current_role;
+        current_role = nullptr;
+    }
+
+    role_name = DEAD;
 }
 
 void Ant::lower_health(int damage) {

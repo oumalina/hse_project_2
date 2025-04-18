@@ -5,10 +5,11 @@ Hill::Hill(float new_x, float new_y) {
     size = 0;
     ant_amount = 0;
     food_amount = 0;
+    sticks_amount = 0;
     last_update_time = 0.0f;
 
-    food_max_capacity = 100;
-    ant_max_capacity = 100;
+    food_max_capacity = 0;
+    ant_max_capacity = 1;
 
     x = new_x;
     y = new_y;
